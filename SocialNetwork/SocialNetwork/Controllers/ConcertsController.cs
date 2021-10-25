@@ -33,15 +33,14 @@ namespace SocialNetwork.Controllers
 		[HttpPost]
 		public ActionResult Create(ConcertFormViewModel viewModel)
 		{
-			var artistId = User.Identity.GetUserId();
-			var artist = _dbContext.Users.Single(u => u.Id == artistId);
-			var genre = _dbContext.Genres.Single(g => g.Id == viewModel.Genre);
+
+
 
 			var concert = new Concert
 			{
-				Artist = artist,
+				ArtistId = User.Identity.GetUserId(),
 				DateTime = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
-				Genre = genre,
+				GenreId = viewModel.Genre,
 				Venue = viewModel.Venue
 			};
 
