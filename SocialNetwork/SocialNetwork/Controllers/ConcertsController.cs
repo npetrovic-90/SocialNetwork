@@ -33,12 +33,16 @@ namespace SocialNetwork.Controllers
 		public ActionResult Create(ConcertFormViewModel viewModel)
 		{
 
-
+			if (!ModelState.IsValid)
+			{
+				viewModel.Genres = _dbContext.Genres.ToList();
+				return View("Create", viewModel);
+			}
 
 			var concert = new Concert
 			{
 				ArtistId = User.Identity.GetUserId(),
-				DateTime = viewModel.DateTime,
+				DateTime = viewModel.GetDateTime(),
 				GenreId = viewModel.Genre,
 				Venue = viewModel.Venue
 			};
