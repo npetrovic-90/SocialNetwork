@@ -30,6 +30,7 @@ namespace SocialNetwork.Controllers
 
 		[Authorize]
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public ActionResult Create(ConcertFormViewModel viewModel)
 		{
 
