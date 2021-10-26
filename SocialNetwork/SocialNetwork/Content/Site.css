@@ -22,3 +22,58 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Bootstrap overrides*/
+.bg-light{
+    background-color: #ff4342 !important;
+    border-color: #ff4342 !important;
+}
+.navbar-light .navbar-brand{
+    color: white !important;
+}
+.dropdown-menu{
+    box-shadow:none;
+
+}
+body {
+    font-size: 17px;
+}
+.body,
+h1,
+h2,
+h3,
+h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6, .navbar-brand {
+    font-family: 'Zen Kurenaido', sans-serif !important;
+    
+}
+
+.app-name{
+    font-weight:bold;
+}
+
+.form-group{
+    margin-bottom: 30px;
+    font-size:17px;
+    
+}
+.form-control{
+    font-size:17px;
+    padding: 20px 15px;
+    border-radius:9px;
+
+}
+.form-control:focus{
+    border-color:#2196f3;
+    box-shadow:none;
+    -webkit-box-shadow:none;
+}
+
+
+.btn{
+
+    font-size:17px;
+    padding:7px 20px;
+    border-radius:9px;
+}
+
