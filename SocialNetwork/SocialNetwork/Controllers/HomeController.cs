@@ -1,16 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SocialNetwork.Models;
+using System;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SocialNetwork.Controllers
 {
 	public class HomeController : Controller
 	{
+		private readonly ApplicationDbContext _dbcontext;
+
+		public HomeController()
+		{
+			_dbcontext = new ApplicationDbContext();
+		}
 		public ActionResult Index()
 		{
-			return View();
+			var upcomingConcerts = _dbcontext.Concerts
+				.Include(c => c.Artist)
+				.Where(c => c.DateTime > DateTime.Now);
+
+			return View(upcomingConcerts);
 		}
 
 		public ActionResult About()

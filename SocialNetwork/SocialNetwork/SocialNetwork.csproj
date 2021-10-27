@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202110251115404_AddForeignKeyPropertiesToConcert.Designer.cs">
       <DependentUpon>202110251115404_AddForeignKeyPropertiesToConcert.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110271036378_AddNameToApplicationUser.cs" />
+    <Compile Include="Migrations\202110271036378_AddNameToApplicationUser.Designer.cs">
+      <DependentUpon>202110271036378_AddNameToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -325,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110251115404_AddForeignKeyPropertiesToConcert.resx">
       <DependentUpon>202110251115404_AddForeignKeyPropertiesToConcert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110271036378_AddNameToApplicationUser.resx">
+      <DependentUpon>202110271036378_AddNameToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
