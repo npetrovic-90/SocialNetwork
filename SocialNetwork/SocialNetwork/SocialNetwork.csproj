@@ -198,6 +198,10 @@
     <Compile Include="Migrations\202110271036378_AddNameToApplicationUser.Designer.cs">
       <DependentUpon>202110271036378_AddNameToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110271120062_OverridingConventions.cs" />
+    <Compile Include="Migrations\202110271120062_OverridingConventions.Designer.cs">
+      <DependentUpon>202110271120062_OverridingConventions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -332,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110271036378_AddNameToApplicationUser.resx">
       <DependentUpon>202110271036378_AddNameToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110271120062_OverridingConventions.resx">
+      <DependentUpon>202110271120062_OverridingConventions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

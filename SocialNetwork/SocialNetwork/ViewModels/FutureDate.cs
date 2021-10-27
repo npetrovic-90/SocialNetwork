@@ -10,7 +10,9 @@ namespace SocialNetwork.ViewModels
 		{
 			DateTime dateTime;
 
-			var isValid = DateTime.TryParseExact(Convert.ToString(value), "d mmm yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out dateTime);
+			var isValid = DateTime.TryParseExact(Convert.ToString(value), "d MMM yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out dateTime);
+
+
 
 			return (isValid && dateTime > DateTime.Now);
 
