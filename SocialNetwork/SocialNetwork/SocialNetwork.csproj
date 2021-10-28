@@ -217,11 +217,16 @@
     <Compile Include="Migrations\202110271729575_AddAttendance.Designer.cs">
       <DependentUpon>202110271729575_AddAttendance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110280957054_AddingFollowersEntity.cs" />
+    <Compile Include="Migrations\202110280957054_AddingFollowersEntity.Designer.cs">
+      <DependentUpon>202110280957054_AddingFollowersEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Concert.cs" />
+    <Compile Include="Models\Following.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -358,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110271729575_AddAttendance.resx">
       <DependentUpon>202110271729575_AddAttendance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110280957054_AddingFollowersEntity.resx">
+      <DependentUpon>202110280957054_AddingFollowersEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
