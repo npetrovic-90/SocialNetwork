@@ -18,7 +18,7 @@
 		</div>
 		<div class="details">
 			<span class="artist">
-				@concert.Artist.Name
+				@concert.Artist.Name <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@concert.ArtistId">Follow?</button>
 			</span>
 			<span class="genre ">
 				@concert.Genre.Name
@@ -35,6 +35,7 @@
 	<script>
 		$(document).ready(function () {
 
+			//attendances toggle
 			$(".js-toggle-attendance").click(function (e) {
 				var button = $(e.target);
 				$.post("api/attendances", { concertId:button.attr("data-concert-id") })
@@ -52,6 +53,20 @@
 
 			})
 
+			//following toggle
+			$(".js-toggle-follow").click(function (e) {
+				var button = $(e.target);
+				$.post("/api/followings", { followeeId:button.attr("data-user-id") })
+					.done(function () {
+
+						button.text("following")
+
+					})
+					.fail(function () {
+						alert("Something failed!");
+					})
+
+			})
 		});
 	</script>
 }
