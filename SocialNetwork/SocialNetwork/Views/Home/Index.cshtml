@@ -20,11 +20,39 @@
 			<span class="artist">
 				@concert.Artist.Name
 			</span>
-			<span class="genre">
+			<span class="genre ">
 				@concert.Genre.Name
 			</span>
+			
+			<button data-concert-id="@concert.Id"  class="btn btn-outline-dark btn-sm float-end js-toggle-attendance">Going?</button>
 		</div>
 	</li>
 	}
 </ul>
+
+@section scripts{
+	
+	<script>
+		$(document).ready(function () {
+
+			$(".js-toggle-attendance").click(function (e) {
+				var button = $(e.target);
+				$.post("api/attendances", { concertId:button.attr("data-concert-id") })
+					.done(function () {
+
+						button
+							.removeClass("btn-outline-dark")
+							.addClass("btn-info")
+							.text("Going")
+
+					})
+					.fail(function () {
+						alert("Something failed!");
+					})
+
+			})
+
+		});
+	</script>
+}
 
