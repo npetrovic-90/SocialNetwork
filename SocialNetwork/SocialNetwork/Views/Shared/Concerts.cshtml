@@ -1,11 +1,11 @@
-﻿@model IEnumerable<SocialNetwork.Models.Concert>
+﻿@model SocialNetwork.ViewModels.ConcertsViewModel
 
 @{
 	ViewBag.Title = "Home Page";
 }
-
-<ul class="concerts">
-	@foreach(var concert in Model)
+<h1>@Model.Heading</h1>
+<ul class="concerts voffset4">
+	@foreach(var concert in Model.UpcomingConcerts)
 	{
 	<li>
 		<div class="date">
@@ -18,14 +18,20 @@
 		</div>
 		<div class="details">
 			<span class="artist">
-				@concert.Artist.Name <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@concert.ArtistId">Follow?</button>
+				@concert.Artist.Name
+				@if (Model.ShowActions)
+				{
+					<button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@concert.ArtistId">Follow?</button>
+				}
 			</span>
 			<span class="genre ">
 				@concert.Genre.Name
 			</span>
-			
-			<button data-concert-id="@concert.Id"  class="btn btn-outline-dark btn-sm float-end js-toggle-attendance">Going?</button>
-		</div>
+			@if (Model.ShowActions)
+			{
+				<button data-concert-id="@concert.Id" class="btn btn-outline-dark btn-sm float-end js-toggle-attendance">Going?</button>
+			}
+			</div>
 	</li>
 	}
 </ul>
@@ -48,7 +54,7 @@
 
 					})
 					.fail(function () {
-						alert("Something failed!");
+						alert("You are already going to this event.");
 					})
 
 			})
@@ -63,7 +69,7 @@
 
 					})
 					.fail(function () {
-						alert("Something failed!");
+						alert("You are already following this artist.");
 					})
 
 			})

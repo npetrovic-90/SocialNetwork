@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using SocialNetwork.Models;
 using SocialNetwork.ViewModels;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,6 +17,26 @@ namespace SocialNetwork.Controllers
 			_dbContext = new ApplicationDbContext();
 		}
 
+		[Authorize]
+		public ActionResult Attending()
+		{
+			var userId = User.Identity.GetUserId();
+
+			var concerts = _dbContext.Attendances
+				.Where(a => a.AttendeeId == userId)
+				.Select(a => a.Concert)
+				.Include(c => c.Artist)
+				.Include(c => c.Genre)
+				.ToList();
+			var viewModel = new ConcertsViewModel
+			{
+				UpcomingConcerts = concerts,
+				ShowActions = User.Identity.IsAuthenticated,
+				Heading = "Concerts i'am Attending"
+			};
+			return View("Concerts", viewModel);
+
+		}
 
 		[Authorize]
 		public ActionResult Create()
