@@ -178,9 +178,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\Api\ConcertsController.cs" />
+    <Compile Include="Controllers\Api\AttendancesController.cs" />
     <Compile Include="Controllers\ConcertsController.cs" />
-    <Compile Include="Controllers\FollowingsController.cs" />
+    <Compile Include="Controllers\Api\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dto\FollowingDto.cs" />
@@ -223,6 +224,10 @@
     <Compile Include="Migrations\202110280957054_AddingFollowersEntity.Designer.cs">
       <DependentUpon>202110280957054_AddingFollowersEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110290955465_AddIsCanceledToConcert.cs" />
+    <Compile Include="Migrations\202110290955465_AddIsCanceledToConcert.Designer.cs">
+      <DependentUpon>202110290955465_AddIsCanceledToConcert.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -259,6 +264,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -370,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110280957054_AddingFollowersEntity.resx">
       <DependentUpon>202110280957054_AddingFollowersEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110290955465_AddIsCanceledToConcert.resx">
+      <DependentUpon>202110290955465_AddIsCanceledToConcert.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

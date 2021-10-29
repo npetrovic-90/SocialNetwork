@@ -7,6 +7,7 @@ using System.Web.Http;
 namespace SocialNetwork.Controllers
 {
 
+	[Authorize]
 	public class FollowingsController : ApiController
 	{
 		private readonly ApplicationDbContext _dbContext;

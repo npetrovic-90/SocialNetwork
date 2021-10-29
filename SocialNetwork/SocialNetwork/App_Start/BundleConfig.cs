@@ -19,7 +19,8 @@ namespace SocialNetwork
 						"~/Scripts/modernizr-*"));
 
 			bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-					  "~/Scripts/bootstrap.bundle.js"));
+					  "~/Scripts/bootstrap.bundle.js",
+					  "~/Scripts/bootbox.min.js"));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",

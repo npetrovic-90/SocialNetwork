@@ -25,7 +25,7 @@ namespace SocialNetwork.Controllers
 		{
 			var userId = User.Identity.GetUserId();
 			var concerts = _dbContext.Concerts
-				.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now)
+				.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now && !g.IsCanceled)
 				.Include(g => g.Genre)
 				.ToList();
 
