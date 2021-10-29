@@ -1,40 +1,42 @@
 ﻿@model SocialNetwork.ViewModels.ConcertFormViewModel
 
 @{
-    ViewBag.Title = "Add a Concert";
+    ViewBag.Title = Model.Heading;
 }
 
-<h2>Add a Concert</h2>
+<h2>@Model.Heading</h2>
 
-@using (Html.BeginForm("Create", "Concerts"))
+@using (Html.BeginForm(Model.Action, "Concerts"))
 {
     <p class="alert alert-info">All fields are <strong>required</strong>.</p>
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m=>m.Id)
+
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Venue, new { @class ="mb-2"})
+        @Html.LabelFor(m => m.Venue, new { @class ="mb-2",@style="font-weight:bold;"})
         @Html.TextBoxFor(m => m.Venue, new { @class = "form-control", autofocus="autofocus" })
         @Html.ValidationMessageFor(m => m.Venue)
 
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Date, new { @class ="mb-2"})
+        @Html.LabelFor(m => m.Date, new { @class ="mb-2",@style="font-weight:bold;"})
         @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "eg 1 Jan 2022" })
         @Html.ValidationMessageFor(m => m.Date)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Time, new { @class ="mb-2", })
+        @Html.LabelFor(m => m.Time, new { @class ="mb-2",@style="font-weight:bold;" })
         @Html.TextBoxFor(m => m.Time, new { @class = "form-control", placeholder = "eg 24:00" })
         @Html.ValidationMessageFor(m => m.Time)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Genre, new { @class ="mb-2"})
+        @Html.LabelFor(m => m.Genre, new { @class ="mb-2",@style="font-weight:bold;"})
         @Html.DropDownListFor(m => m.Genre, new SelectList(Model.Genres, "Id", "Name"), "", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Genre)
     </div>
     <div class="form-group">
         
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary btn-lg">Save</button>
         
         
     </div>

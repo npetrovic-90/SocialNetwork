@@ -18,6 +18,8 @@ namespace SocialNetwork.Controllers
 			_dbContext = new ApplicationDbContext();
 		}
 
+
+
 		[Authorize]
 		public ActionResult Mine()
 		{
@@ -58,11 +60,35 @@ namespace SocialNetwork.Controllers
 		{
 			var viewModel = new ConcertFormViewModel()
 			{
-				Genres = _dbContext.Genres.ToList()
+				Genres = _dbContext.Genres.ToList(),
+				Heading = "Add a Concert"
 			};
 
-			return View(viewModel);
+			return View("ConcertForm", viewModel);
 		}
+
+		[Authorize]
+		public ActionResult Edit(int id)
+		{
+			var userId = User.Identity.GetUserId();
+
+			var concert = _dbContext.Concerts.Single(g => g.Id == id && g.ArtistId == userId);
+
+			var viewModel = new ConcertFormViewModel()
+			{
+				Id = concert.Id,
+				Genres = _dbContext.Genres.ToList(),
+				Date = concert.DateTime.ToString("d MMM yyyy"),
+				Time = concert.DateTime.ToString("HH:mm"),
+				Genre = concert.GenreId,
+				Venue = concert.Venue,
+				Heading = "Edit a Concert"
+
+			};
+
+			return View("ConcertForm", viewModel);
+		}
+
 
 		[Authorize]
 		[HttpPost]
@@ -73,7 +99,7 @@ namespace SocialNetwork.Controllers
 			if (!ModelState.IsValid)
 			{
 				viewModel.Genres = _dbContext.Genres.ToList();
-				return View("Create", viewModel);
+				return View("ConcertForm", viewModel);
 			}
 
 			var concert = new Concert
@@ -85,6 +111,35 @@ namespace SocialNetwork.Controllers
 			};
 
 			_dbContext.Concerts.Add(concert);
+			_dbContext.SaveChanges();
+
+			return RedirectToAction("Mine", "Concerts");
+		}
+
+		//updating a concert
+		[Authorize]
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Update(ConcertFormViewModel viewModel)
+		{
+
+			if (!ModelState.IsValid)
+			{
+				viewModel.Genres = _dbContext.Genres.ToList();
+				return View("ConcertForm", viewModel);
+			}
+
+			var userId = User.Identity.GetUserId();
+			var concert = _dbContext.Concerts.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+
+
+
+			concert.DateTime = viewModel.GetDateTime();
+			concert.GenreId = viewModel.Genre;
+			concert.Venue = viewModel.Venue;
+
+
+
 			_dbContext.SaveChanges();
 
 			return RedirectToAction("Mine", "Concerts");
