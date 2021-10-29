@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using SocialNetwork.Models;
 using SocialNetwork.ViewModels;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -18,6 +19,20 @@ namespace SocialNetwork.Controllers
 		}
 
 		[Authorize]
+		public ActionResult Mine()
+		{
+			var userId = User.Identity.GetUserId();
+			var concerts = _dbContext.Concerts
+				.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now)
+				.Include(g => g.Genre)
+				.ToList();
+
+			return View(concerts);
+
+
+		}
+
+		[Authorize]
 		public ActionResult Attending()
 		{
 			var userId = User.Identity.GetUserId();
@@ -32,7 +47,7 @@ namespace SocialNetwork.Controllers
 			{
 				UpcomingConcerts = concerts,
 				ShowActions = User.Identity.IsAuthenticated,
-				Heading = "Concerts i'am Attending"
+				Heading = "Concerts i'm Attending"
 			};
 			return View("Concerts", viewModel);
 
@@ -72,7 +87,7 @@ namespace SocialNetwork.Controllers
 			_dbContext.Concerts.Add(concert);
 			_dbContext.SaveChanges();
 
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("Mine", "Concerts");
 		}
 	}
 }
