@@ -27,6 +27,21 @@ namespace SocialNetwork.Controllers.Api
 				return NotFound();
 
 			concert.IsCanceled = true;
+
+			var notification = new Notification(NotificationType.ConcertCanceled, concert);
+
+
+			var attendees = _dbContext.Attendances
+				.Where(a => a.ConcertId == concert.Id)
+				.Select(a => a.Attendee)
+				.ToList();
+
+			foreach (var attendee in attendees)
+			{
+				attendee.Notify(notification);
+			}
+
+
 			_dbContext.SaveChanges();
 
 			return Ok();
