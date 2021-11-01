@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using SocialNetwork.Models;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 
@@ -21,26 +22,14 @@ namespace SocialNetwork.Controllers.Api
 
 			var userId = User.Identity.GetUserId();
 
-			var concert = _dbContext.Concerts.Single(c => c.Id == id && c.ArtistId == userId);
+			var concert = _dbContext.Concerts
+				.Include(c => c.Attendances.Select(a => a.Attendee))
+				.Single(c => c.Id == id && c.ArtistId == userId);
 
 			if (concert.IsCanceled)
 				return NotFound();
 
-			concert.IsCanceled = true;
-
-			var notification = new Notification(NotificationType.ConcertCanceled, concert);
-
-
-			var attendees = _dbContext.Attendances
-				.Where(a => a.ConcertId == concert.Id)
-				.Select(a => a.Attendee)
-				.ToList();
-
-			foreach (var attendee in attendees)
-			{
-				attendee.Notify(notification);
-			}
-
+			concert.Cancel();
 
 			_dbContext.SaveChanges();
 

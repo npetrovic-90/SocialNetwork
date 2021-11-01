@@ -232,6 +232,10 @@
     <Compile Include="Migrations\202111011523222_AddNotification.Designer.cs">
       <DependentUpon>202111011523222_AddNotification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111011616549_UserNotificationWillCascadeOnDeleteFalse.cs" />
+    <Compile Include="Migrations\202111011616549_UserNotificationWillCascadeOnDeleteFalse.Designer.cs">
+      <DependentUpon>202111011616549_UserNotificationWillCascadeOnDeleteFalse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -389,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111011523222_AddNotification.resx">
       <DependentUpon>202111011523222_AddNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111011616549_UserNotificationWillCascadeOnDeleteFalse.resx">
+      <DependentUpon>202111011616549_UserNotificationWillCascadeOnDeleteFalse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
