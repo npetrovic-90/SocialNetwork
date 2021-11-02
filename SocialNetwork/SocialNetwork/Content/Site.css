@@ -154,3 +154,14 @@ h4, h5, h6,
     display:block;
 }
 
+.notifications{
+    position:relative;
+}
+.notifications .badge {
+
+    position: absolute;
+    background-color:#a80a0a !important;
+    left:12px;
+    top:-6px;
+}
+

@@ -6,9 +6,15 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-      
+      <li class="nav-item me-4 mt-1 notifications">
+          <a class="nav-item" href="#" style="color: white;text-decoration:none;">
+              <i class="fas fa-globe fa-lg"></i>
+              <span class="badge bg-secondary rounded-circle js-notifications-count d-none"></span>
+          </a>
+      </li>
         
         <li class="nav-item dropdown">
+
             <a class="navbar-brand dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 @User.Identity.GetUserName()
             </a>

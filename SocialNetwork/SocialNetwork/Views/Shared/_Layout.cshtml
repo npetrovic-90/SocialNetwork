@@ -1,47 +1,123 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title - My ASP.NET Application</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            @Html.ActionLink("SocialNetwork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand app-name"  })
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    @Html.ActionLink("Home", "Index", "Home",new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink("Add a Concert", "Create", "Concerts", new { area = "" }, new { @class = "navbar-brand" })
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			@Html.ActionLink("SocialNetwork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand app-name"  })
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					@Html.ActionLink("Home", "Index", "Home",new { area = "" }, new { @class = "navbar-brand" })
+					@Html.ActionLink("Add a Concert", "Create", "Concerts", new { area = "" }, new { @class = "navbar-brand" })
 
-                </div>
-            </div>
-            @Html.Partial("_LoginPartial")
-        </div>
-    </nav>
+				</div>
+			</div>
+			@Html.Partial("_LoginPartial")
+		</div>
+	</nav>
 
-    
+	
 
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+		</footer>
+	</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+<script type="text/x-template" id="notifications-template">
+
+	<ul>
+		<%
+		_.each(notifications,function(notification){
+		if(notification.type == 1){%>
+
+		<li><%= notification.concert.artist.name%> has canceled the concert at <%= notification.concert.venue%> at <%= notification.concert.dateTime%></li>
+
+		<%}
+		else if(notification.type == 2){
+		var changes=[],
+		originalValues=[],
+		newvalues=[];
+
+		if(notification.originalValue != notification.concert.venue){
+		changes.push('venue');
+		originalvalues.push(notification.originalVenue);
+		newValues.push(notification.concert.venue);
+		}
+
+		if(notification.originalDateTime != notification.concert.dateTime){
+		changes.push('date/time');
+		originalvalues.push(notification.originalDateTime);
+		newValues.push(notification.concert.dateTime);
+		}
+		%>
+		<li><%= notification.concert.name %> has changed <%= changes.join(' and ') %> of the concert from <%= originalValues.join('/') %> to <%= newValues.join('/')%></li>
+		<%
+		}
+		})
+		%>
+	</ul>
+</script>
+
+	
+	<script>
+		$(document).ready(function () {
+			
+
+			$.getJSON("/api/notifications", function (notifications) {
+
+				if (notifications.length == 0) return;
+
+				$(".js-notifications-count")
+					.text(notifications.length)
+					.removeClass("d-none")
+					.addClass("animate__animated animate__fadeInDown");
+
+
+				$(".notifications").popover({
+				html: true,
+				placement: "bottom",
+				title: "Notifications",
+				content: function () {
+					var compiled =_.template($("#notifications-template").html());
+
+					return compiled({ notifications: notifications });
+
+
+					return html;
+					},
+			
+				
+			});
+
+
+			});
+
+		});
+
+	</script>
 </body>
 </html>
