@@ -8,7 +8,7 @@ namespace SocialNetwork.Models
 	{
 		[Key]
 		[Column(Order = 1)]
-		public int UserId { get; private set; }
+		public string UserId { get; private set; }
 
 		[Key]
 		[Column(Order = 2)]

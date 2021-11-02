@@ -9,6 +9,7 @@ using System.Web.Http;
 namespace SocialNetwork.Controllers.Api
 {
 
+
 	public class NotificationsController : ApiController
 	{
 		private readonly ApplicationDbContext _dbContext;
@@ -18,13 +19,14 @@ namespace SocialNetwork.Controllers.Api
 			_dbContext = new ApplicationDbContext();
 
 		}
+		[HttpGet]
 		public IEnumerable<NotificationDto> GetNewNotifications()
 		{
 
 			var userId = User.Identity.GetUserId();
 
 			var notifications = _dbContext.UserNotifications
-				.Where(un => un.User.Id == userId)
+				.Where(un => !un.IsRead)
 				.Select(un => un.Notification)
 				.Include(n => n.Concert.Artist)
 				.ToList();

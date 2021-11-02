@@ -7,13 +7,13 @@ namespace SocialNetwork.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddNotification : IMigrationMetadata
+    public sealed partial class UserNotification : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNotification));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UserNotification));
         
         string IMigrationMetadata.Id
         {
-            get { return "202111011523222_AddNotification"; }
+            get { return "202111021626336_UserNotification"; }
         }
         
         string IMigrationMetadata.Source

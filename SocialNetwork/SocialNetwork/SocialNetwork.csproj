@@ -237,13 +237,9 @@
     <Compile Include="Migrations\202110290955465_AddIsCanceledToConcert.Designer.cs">
       <DependentUpon>202110290955465_AddIsCanceledToConcert.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202111011523222_AddNotification.cs" />
-    <Compile Include="Migrations\202111011523222_AddNotification.Designer.cs">
-      <DependentUpon>202111011523222_AddNotification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202111011616549_UserNotificationWillCascadeOnDeleteFalse.cs" />
-    <Compile Include="Migrations\202111011616549_UserNotificationWillCascadeOnDeleteFalse.Designer.cs">
-      <DependentUpon>202111011616549_UserNotificationWillCascadeOnDeleteFalse.cs</DependentUpon>
+    <Compile Include="Migrations\202111021626336_UserNotification.cs" />
+    <Compile Include="Migrations\202111021626336_UserNotification.Designer.cs">
+      <DependentUpon>202111021626336_UserNotification.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -400,11 +396,8 @@
     <EmbeddedResource Include="Migrations\202110290955465_AddIsCanceledToConcert.resx">
       <DependentUpon>202110290955465_AddIsCanceledToConcert.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202111011523222_AddNotification.resx">
-      <DependentUpon>202111011523222_AddNotification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202111011616549_UserNotificationWillCascadeOnDeleteFalse.resx">
-      <DependentUpon>202111011616549_UserNotificationWillCascadeOnDeleteFalse.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202111021626336_UserNotification.resx">
+      <DependentUpon>202111021626336_UserNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
