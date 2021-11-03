@@ -54,27 +54,27 @@
 		_.each(notifications,function(notification){
 		if(notification.type == 1){%>
 
-		<li><span class="highlight"><%= notification.concert.artist.name%></span> has canceled the concert at <%= notification.concert.venue%> at <%= notification.concert.dateTime%></li>
+		<li><span class="highlight"><%= notification.concert.artist.name%></span> has canceled the concert at <%= notification.concert.venue%> at <%= moment(notification.concert.dateTime).format("D MMM HH:mm")%></li>
 
 		<%}
 		else if(notification.type == 2){
 		var changes=[],
 		originalValues=[],
-		newvalues=[];
+		newValues=[];
 
 		if(notification.originalValue != notification.concert.venue){
 		changes.push('venue');
-		originalvalues.push(notification.originalVenue);
+		originalValues.push(notification.originalVenue);
 		newValues.push(notification.concert.venue);
 		}
 
 		if(notification.originalDateTime != notification.concert.dateTime){
 		changes.push('date/time');
-		originalvalues.push(notification.originalDateTime);
-		newValues.push(notification.concert.dateTime);
+		originalValues.push(moment(notification.originalDateTime).format("D MMM HH:mm"));
+		newValues.push(moment(notification.concert.dateTime).format("D MMM HH:mm"));
 		}
 		%>
-		<li><span class="highlight"><%= notification.concert.name %></span> has changed <%= changes.join(' and ') %> of the concert from <%= originalValues.join('/') %> to <%= newValues.join('/')%></li>
+		<li><span class="highlight"><%= notification.concert.artist.name %></span> has changed <%= changes.join(' and ') %> of the concert from <%= originalValues.join('/') %> to <%= newValues.join('/')%></li>
 		<%
 		}
 		})
