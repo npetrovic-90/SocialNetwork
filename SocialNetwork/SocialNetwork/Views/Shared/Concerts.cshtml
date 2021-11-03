@@ -6,10 +6,23 @@
 <h1>@Model.Heading</h1>
 @using (Html.BeginForm("Search", "Concerts"))
 {
-	<div class="form-group">
-		@Html.TextBoxFor(m=>m.SearchTerm, new {@class="form-control" })
-		<input type="submit" value="Search" />
+<div class="form-group">
+	
+
+
+	<div class="input-group">
+		<div class="input-group">
+			@Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", aria_describedby = "basic-addon2" })
+			<div class="input-group-append">
+				<button id="basic-addon2" class="btn btn-outline-secondary form-control search-button" type="submit"><i class="fas fa-search"></i></button>
+				
+			</div>
+		</div>
+		
+
 	</div>
+
+</div>
 }
 <ul class="concerts voffset4">
 	@foreach(var concert in Model.UpcomingConcerts)

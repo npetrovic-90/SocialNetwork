@@ -55,6 +55,11 @@ namespace SocialNetwork.Controllers
 
 		}
 
+		[HttpPost]
+		public ActionResult Search(ConcertsViewModel viewModel)
+		{
+			return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
+		}
 		[Authorize]
 		public ActionResult Create()
 		{

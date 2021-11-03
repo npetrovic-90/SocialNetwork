@@ -15,18 +15,27 @@ namespace SocialNetwork.Controllers
 		{
 			_dbcontext = new ApplicationDbContext();
 		}
-		public ActionResult Index()
+		public ActionResult Index(string query = null)
 		{
 			var upcomingConcerts = _dbcontext.Concerts
 				.Include(c => c.Artist)
 				.Include(c => c.Genre)
 				.Where(c => c.DateTime > DateTime.Now && !c.IsCanceled);
 
+			if (!String.IsNullOrWhiteSpace(query))
+			{
+				upcomingConcerts = upcomingConcerts.Where(c =>
+				  c.Artist.Name.Contains(query) ||
+				  c.Genre.Name.Contains(query) ||
+				  c.Venue.Contains(query));
+			}
+
 			var viewModel = new ConcertsViewModel
 			{
 				UpcomingConcerts = upcomingConcerts,
 				ShowActions = User.Identity.IsAuthenticated,
-				Heading = "Upcoming Concerts"
+				Heading = "Upcoming Concerts",
+				SearchTerm = query
 			};
 
 			return View("Concerts", viewModel);

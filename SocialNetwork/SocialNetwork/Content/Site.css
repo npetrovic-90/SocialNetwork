@@ -190,4 +190,9 @@ h4, h5, h6,
     font-weight:bold;
 }
 
+/**/
+.search-button{
+    border-radius:0 9px 9px 0;
+}
+
 
