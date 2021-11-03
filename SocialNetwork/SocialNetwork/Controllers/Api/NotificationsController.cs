@@ -19,6 +19,20 @@ namespace SocialNetwork.Controllers.Api
 			_dbContext = new ApplicationDbContext();
 
 		}
+		[HttpPost]
+		public IHttpActionResult MarkAsRead()
+		{
+			var userId = User.Identity.GetUserId();
+			var notifications = _dbContext.UserNotifications.Where(un => un.UserId == userId && !un.IsRead).ToList();
+
+			notifications.ForEach(n => n.Read());
+
+			_dbContext.SaveChanges();
+
+			return Ok();
+
+		}
+
 		[HttpGet]
 		public IEnumerable<NotificationDto> GetNewNotifications()
 		{
