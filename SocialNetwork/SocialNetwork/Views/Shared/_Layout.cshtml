@@ -49,7 +49,7 @@
 	@RenderSection("scripts", required: false)
 <script type="text/x-template" id="notifications-template">
 
-	<ul>
+	<ul class="notifications">
 		<%
 		_.each(notifications,function(notification){
 		if(notification.type == 1){%>
@@ -109,6 +109,7 @@
 
 					return html;
 					},
+					template:'<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
 			
 				
 			});
