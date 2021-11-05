@@ -76,18 +76,38 @@
 			//attendances toggle
 			$(".js-toggle-attendance").click(function (e) {
 				var button = $(e.target);
-				$.post("api/attendances", { concertId:button.attr("data-concert-id") })
-					.done(function () {
 
+				if (button.hasClass("btn-outline-dark")) {
+					$.post("api/attendances", { concertId: button.attr("data-concert-id") })
+						.done(function () {
+
+							button
+								.removeClass("btn-outline-dark")
+								.addClass("btn-info")
+								.text("Going")
+
+						})
+						.fail(function () {
+							alert("You are already going to this event.");
+						})
+				} else {
+					$.ajax({
+						url: "/api/attendances/" + button.attr("data-concert-id"),
+						method: "DELETE"
+					}).done(function () {
 						button
-							.removeClass("btn-outline-dark")
-							.addClass("btn-info")
-							.text("Going")
+							.removeClass("btn-info")
+							.addClass("btn-outline-dark")
+							.text("Going?");
 
+					}).fail(function () {
+						alert("You are not going to this event.");
 					})
-					.fail(function () {
-						alert("You are already going to this event.");
-					})
+
+
+				}
+
+				
 
 			})
 
