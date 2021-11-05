@@ -38,7 +38,10 @@
 		</div>
 		<div class="details">
 			<span class="artist">
-				@concert.Artist.Name
+				<a href="@Url.Action("Details","Concerts", new { id=concert.Id})">
+					@concert.Artist.Name
+				</a>
+				
 
 				@if (concert.IsCanceled)
 				{

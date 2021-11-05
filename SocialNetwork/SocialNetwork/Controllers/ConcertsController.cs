@@ -18,6 +18,31 @@ namespace SocialNetwork.Controllers
 			_dbContext = new ApplicationDbContext();
 		}
 
+		public ActionResult Details(int id)
+		{
+			var concert = _dbContext.Concerts
+				.Include(c => c.Artist)
+				.Include(c => c.Genre)
+				.SingleOrDefault(c => c.Id == id);
+
+			if (concert == null)
+				return HttpNotFound();
+
+			var viewModel = new ConcertDetailsViewModel { Concert = concert };
+
+			if (User.Identity.IsAuthenticated)
+			{
+				var userId = User.Identity.GetUserId();
+
+				viewModel.IsAttending = _dbContext.Attendances
+					.Any(a => a.ConcertId == concert.Id && a.AttendeeId == userId);
+
+				viewModel.IsFollowing = _dbContext.Followings
+					.Any(f => f.FolloweeId == concert.ArtistId && f.FollowerId == userId);
+			}
+
+			return View("Details", viewModel);
+		}
 
 
 		[Authorize]
