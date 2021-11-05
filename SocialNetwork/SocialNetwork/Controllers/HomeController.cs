@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Models;
+﻿using Microsoft.AspNet.Identity;
+using SocialNetwork.Models;
 using SocialNetwork.ViewModels;
 using System;
 using System.Data.Entity;
@@ -9,15 +10,15 @@ namespace SocialNetwork.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ApplicationDbContext _dbcontext;
+		private readonly ApplicationDbContext _dbContext;
 
 		public HomeController()
 		{
-			_dbcontext = new ApplicationDbContext();
+			_dbContext = new ApplicationDbContext();
 		}
 		public ActionResult Index(string query = null)
 		{
-			var upcomingConcerts = _dbcontext.Concerts
+			var upcomingConcerts = _dbContext.Concerts
 				.Include(c => c.Artist)
 				.Include(c => c.Genre)
 				.Where(c => c.DateTime > DateTime.Now && !c.IsCanceled);
@@ -30,12 +31,20 @@ namespace SocialNetwork.Controllers
 				  c.Venue.Contains(query));
 			}
 
+			var userId = User.Identity.GetUserId();
+
+			var attendances = _dbContext.Attendances
+				.Where(a => a.AttendeeId == userId && a.Concert.DateTime > DateTime.Now)
+				.ToList()
+				.ToLookup(a => a.ConcertId);
+
 			var viewModel = new ConcertsViewModel
 			{
 				UpcomingConcerts = upcomingConcerts,
 				ShowActions = User.Identity.IsAuthenticated,
 				Heading = "Upcoming Concerts",
-				SearchTerm = query
+				SearchTerm = query,
+				Attendances = attendances
 			};
 
 			return View("Concerts", viewModel);

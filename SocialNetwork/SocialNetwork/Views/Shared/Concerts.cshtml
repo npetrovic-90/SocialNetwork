@@ -57,7 +57,11 @@
 			</span>
 			@if (Model.ShowActions && !concert.IsCanceled)
 			{
-				<button data-concert-id="@concert.Id" class="btn btn-outline-dark btn-sm float-end js-toggle-attendance">Going?</button>
+		<button data-concert-id="@concert.Id"
+				class="btn @(Model.Attendances.Contains(concert.Id)? "btn-info":"btn-outline-dark")
+						btn-sm float-end js-toggle-attendance">
+			@(Model.Attendances.Contains(concert.Id) ? "Going":"Going?")
+					</button>
 			}
 			</div>
 	</li>

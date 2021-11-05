@@ -70,11 +70,20 @@ namespace SocialNetwork.Controllers
 				.Include(c => c.Artist)
 				.Include(c => c.Genre)
 				.ToList();
+
+
+
+			var attendances = _dbContext.Attendances
+				.Where(a => a.AttendeeId == userId && a.Concert.DateTime > DateTime.Now)
+				.ToList()
+				.ToLookup(a => a.ConcertId);
+
 			var viewModel = new ConcertsViewModel
 			{
 				UpcomingConcerts = concerts,
 				ShowActions = User.Identity.IsAuthenticated,
-				Heading = "Concerts i'm Attending"
+				Heading = "Concerts i'm Attending",
+				Attendances = attendances
 			};
 			return View("Concerts", viewModel);
 
