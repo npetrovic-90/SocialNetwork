@@ -141,6 +141,8 @@ h4, h5, h6,
 }
 .concerts > li .details .genre{
     font-size:15px;
+    display:block;
+    margin-bottom:4px;
 
 }
 

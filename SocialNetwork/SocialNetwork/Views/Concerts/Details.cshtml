@@ -9,11 +9,11 @@
 	{
 		if (Model.IsFollowing)
 		{
-			<button class="btn btn-info float-end">Following</button>
+			<button class="btn btn-info  js-toggle-follow" data-user-id="@Model.Concert.ArtistId">Following</button>
 		}
 		else
 		{
-			<button class="btn btn-outline-info float-end">Follow</button>
+			<button class="btn btn-outline-info  js-toggle-follow" data-user-id="@Model.Concert.ArtistId">Follow</button>
 		}
 	}
 
@@ -24,5 +24,12 @@
 @if(User.Identity.IsAuthenticated && Model.IsAttending)
 {
 	<p>You are going to this event.</p>
+}
+@section scripts{	
+	<script>
+		$(document).ready(function () {
+			ConcertDetailsController.init();
+		});
+	</script>	
 }
 

@@ -278,6 +278,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\controllers\concertDetailsController.js" />
+    <Content Include="Scripts\app\controllers\concertsController.js" />
+    <Content Include="Scripts\app\services\attendanceService.js" />
+    <Content Include="Scripts\app\services\followingService.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

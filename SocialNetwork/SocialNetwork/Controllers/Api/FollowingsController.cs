@@ -17,12 +17,29 @@ namespace SocialNetwork.Controllers
 			_dbContext = new ApplicationDbContext();
 		}
 
+		[HttpDelete]
+		public IHttpActionResult Unfollow(string id)
+		{
+			var userId = User.Identity.GetUserId();
+
+			var following = _dbContext.Followings
+				.SingleOrDefault(f => f.FollowerId == userId && f.FolloweeId == id);
+
+			if (following == null)
+				return NotFound();
+
+			_dbContext.Followings.Remove(following);
+			_dbContext.SaveChanges();
+
+			return Ok(id);
+		}
+
 		[HttpPost]
 		public IHttpActionResult Follow(FollowingDto dto)
 		{
 			var userId = User.Identity.GetUserId();
 
-			if (_dbContext.Followings.Any(f => f.FolloweeId == userId && f.FolloweeId == dto.FolloweeId))
+			if (_dbContext.Followings.Any(f => f.FollowerId == userId && f.FolloweeId == dto.FolloweeId))
 				return BadRequest("Following already exists");
 
 			var following = new Following { FollowerId = userId, FolloweeId = dto.FolloweeId };
