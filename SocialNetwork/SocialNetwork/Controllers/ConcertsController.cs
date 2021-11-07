@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using SocialNetwork.Models;
+using SocialNetwork.Persistence;
 using SocialNetwork.ViewModels;
-using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,9 +13,15 @@ namespace SocialNetwork.Controllers
 
 		private readonly ApplicationDbContext _dbContext;
 
+
+
+
+		private readonly UnitOfWork _unitOfWork;
+
 		public ConcertsController()
 		{
 			_dbContext = new ApplicationDbContext();
+			_unitOfWork = new UnitOfWork(_dbContext);
 		}
 
 		public ActionResult Details(int id)
@@ -34,11 +40,10 @@ namespace SocialNetwork.Controllers
 			{
 				var userId = User.Identity.GetUserId();
 
-				viewModel.IsAttending = _dbContext.Attendances
-					.Any(a => a.ConcertId == concert.Id && a.AttendeeId == userId);
+				viewModel.IsAttending = _unitOfWork.Attendances.GetAttendance(concert.Id, userId);
 
-				viewModel.IsFollowing = _dbContext.Followings
-					.Any(f => f.FolloweeId == concert.ArtistId && f.FollowerId == userId);
+
+				viewModel.IsFollowing = _unitOfWork.Followings.GetFollowing(userId, concert.ArtistId);
 			}
 
 			return View("Details", viewModel);
@@ -49,10 +54,7 @@ namespace SocialNetwork.Controllers
 		public ActionResult Mine()
 		{
 			var userId = User.Identity.GetUserId();
-			var concerts = _dbContext.Concerts
-				.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now && !g.IsCanceled)
-				.Include(g => g.Genre)
-				.ToList();
+			var concerts = _unitOfWork.Concerts.GetUpcomingConcertsByArtist(userId);
 
 			return View(concerts);
 
@@ -64,42 +66,32 @@ namespace SocialNetwork.Controllers
 		{
 			var userId = User.Identity.GetUserId();
 
-			var concerts = _dbContext.Attendances
-				.Where(a => a.AttendeeId == userId)
-				.Select(a => a.Concert)
-				.Include(c => c.Artist)
-				.Include(c => c.Genre)
-				.ToList();
-
-
-
-			var attendances = _dbContext.Attendances
-				.Where(a => a.AttendeeId == userId && a.Concert.DateTime > DateTime.Now)
-				.ToList()
-				.ToLookup(a => a.ConcertId);
 
 			var viewModel = new ConcertsViewModel
 			{
-				UpcomingConcerts = concerts,
+				UpcomingConcerts = _unitOfWork.Concerts.GetConcertsUserAttending(userId),
 				ShowActions = User.Identity.IsAuthenticated,
 				Heading = "Concerts i'm Attending",
-				Attendances = attendances
+				Attendances = _unitOfWork.Attendances.GetFutureAttendances(userId).ToLookup(a => a.ConcertId)
 			};
 			return View("Concerts", viewModel);
 
 		}
+
+
 
 		[HttpPost]
 		public ActionResult Search(ConcertsViewModel viewModel)
 		{
 			return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
 		}
+
 		[Authorize]
 		public ActionResult Create()
 		{
 			var viewModel = new ConcertFormViewModel()
 			{
-				Genres = _dbContext.Genres.ToList(),
+				Genres = _unitOfWork.Genres.GetGenres(),
 				Heading = "Add a Concert"
 			};
 
@@ -109,9 +101,14 @@ namespace SocialNetwork.Controllers
 		[Authorize]
 		public ActionResult Edit(int id)
 		{
-			var userId = User.Identity.GetUserId();
 
-			var concert = _dbContext.Concerts.Single(g => g.Id == id && g.ArtistId == userId);
+
+			var concert = _unitOfWork.Concerts.GetConcert(id);
+
+			if (concert == null) return HttpNotFound();
+
+			if (concert.ArtistId != User.Identity.GetUserId())
+				return new HttpUnauthorizedResult();
 
 			var viewModel = new ConcertFormViewModel()
 			{
@@ -149,8 +146,8 @@ namespace SocialNetwork.Controllers
 				Venue = viewModel.Venue
 			};
 
-			_dbContext.Concerts.Add(concert);
-			_dbContext.SaveChanges();
+			_unitOfWork.Concerts.Add(concert);
+			_unitOfWork.Complete();
 
 			return RedirectToAction("Mine", "Concerts");
 		}
@@ -168,19 +165,17 @@ namespace SocialNetwork.Controllers
 				return View("ConcertForm", viewModel);
 			}
 
-			var userId = User.Identity.GetUserId();
-			var concert = _dbContext.Concerts
-				.Include(c => c.Attendances.Select(a => a.Attendee))
-				.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+			var concert = _unitOfWork.Concerts.GetConcertWithAttendees(viewModel.Id);
 
+			if (concert == null)
+				return HttpNotFound();
+
+			if (concert.ArtistId != User.Identity.GetUserId())
+				return new HttpUnauthorizedResult();
 
 			concert.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
 
-
-
-
-
-			_dbContext.SaveChanges();
+			_unitOfWork.Complete();
 
 			return RedirectToAction("Mine", "Concerts");
 		}

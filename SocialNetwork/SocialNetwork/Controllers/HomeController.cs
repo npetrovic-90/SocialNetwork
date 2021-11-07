@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using SocialNetwork.Models;
+using SocialNetwork.Repositories;
 using SocialNetwork.ViewModels;
 using System;
 using System.Data.Entity;
@@ -11,10 +12,12 @@ namespace SocialNetwork.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ApplicationDbContext _dbContext;
+		private readonly AttendanceRepository _attendanceRepository;
 
 		public HomeController()
 		{
 			_dbContext = new ApplicationDbContext();
+			_attendanceRepository = new AttendanceRepository(_dbContext);
 		}
 		public ActionResult Index(string query = null)
 		{
@@ -33,10 +36,7 @@ namespace SocialNetwork.Controllers
 
 			var userId = User.Identity.GetUserId();
 
-			var attendances = _dbContext.Attendances
-				.Where(a => a.AttendeeId == userId && a.Concert.DateTime > DateTime.Now)
-				.ToList()
-				.ToLookup(a => a.ConcertId);
+			var attendances = _attendanceRepository.GetFutureAttendances(userId).ToLookup(a => a.ConcertId);
 
 			var viewModel = new ConcertsViewModel
 			{
