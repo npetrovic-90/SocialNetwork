@@ -222,6 +222,7 @@
     <Compile Include="Core\Dto\GenreDto.cs" />
     <Compile Include="Core\Dto\NotificationDto.cs" />
     <Compile Include="Core\Dto\UserDto.cs" />
+    <Compile Include="Core\Repositories\INotificationRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -282,6 +283,7 @@
     <Compile Include="Core\Models\NotificationType.cs" />
     <Compile Include="Core\Models\UserNotification.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Persistence\Repositories\NotificationRepository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Persistence\Repositories\AttendanceRepository.cs" />

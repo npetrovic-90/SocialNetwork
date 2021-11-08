@@ -30,10 +30,10 @@ namespace SocialNetwork.Controllers
 			{
 				var userId = User.Identity.GetUserId();
 
-				viewModel.IsAttending = _unitOfWork.Attendances.GetAttendance(concert.Id, userId);
+				viewModel.IsAttending = (_unitOfWork.Attendances.GetAttendance(concert.Id, userId) == null) ? false : true;
 
 
-				viewModel.IsFollowing = _unitOfWork.Followings.GetFollowing(userId, concert.ArtistId);
+				viewModel.IsFollowing = (_unitOfWork.Followings.GetFollowing(userId, concert.ArtistId) == null ? false : true);
 			}
 
 			return View("Details", viewModel);

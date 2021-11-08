@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using SocialNetwork.Models;
-using System.Linq;
+using SocialNetwork.Persistence;
 using System.Web.Http;
 
 namespace SocialNetwork.Controllers
@@ -12,11 +12,13 @@ namespace SocialNetwork.Controllers
 	[Authorize]
 	public class AttendancesController : ApiController
 	{
-		private readonly ApplicationDbContext _dbContext;
+		private readonly IUnitOfWork _unitOfWork;
 
-		public AttendancesController()
+
+		public AttendancesController(IUnitOfWork unitOfWork)
 		{
-			_dbContext = new ApplicationDbContext();
+			_unitOfWork = unitOfWork;
+
 		}
 
 		[HttpDelete]
@@ -24,14 +26,13 @@ namespace SocialNetwork.Controllers
 		{
 			var userId = User.Identity.GetUserId();
 
-			var attendance = _dbContext.Attendances
-				.SingleOrDefault(a => a.AttendeeId == userId && a.ConcertId == id);
+			var attendance = _unitOfWork.Attendances.GetAttendance(id, userId);
 
 			if (attendance == null)
 				return NotFound();
 
-			_dbContext.Attendances.Remove(attendance);
-			_dbContext.SaveChanges();
+			_unitOfWork.Attendances.Remove(attendance);
+			_unitOfWork.Complete();
 
 			return Ok(id);
 		}
@@ -42,7 +43,7 @@ namespace SocialNetwork.Controllers
 			var currUser = User.Identity.GetUserId();
 
 
-			if (_dbContext.Attendances.Any(a => a.AttendeeId == currUser && a.ConcertId == dto.ConcertId))
+			if (_unitOfWork.Attendances.GetAttendance(dto.ConcertId, currUser) != null)
 				return BadRequest("The attendance already exists.");
 
 			var attendance = new Attendance
@@ -51,8 +52,10 @@ namespace SocialNetwork.Controllers
 				AttendeeId = currUser
 			};
 
-			_dbContext.Attendances.Add(attendance);
-			_dbContext.SaveChanges();
+
+			_unitOfWork.Attendances.Add(attendance);
+			_unitOfWork.Complete();
+
 
 			return Ok();
 		}

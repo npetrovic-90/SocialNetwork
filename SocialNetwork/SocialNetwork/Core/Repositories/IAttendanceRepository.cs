@@ -5,7 +5,11 @@ namespace SocialNetwork.Repositories
 {
 	public interface IAttendanceRepository
 	{
-		bool GetAttendance(int concertId, string userId);
+		Attendance GetAttendance(int concertId, string userId);
 		IEnumerable<Attendance> GetFutureAttendances(string userId);
+
+		void Remove(Attendance attendance);
+
+		void Add(Attendance attendance);
 	}
 }

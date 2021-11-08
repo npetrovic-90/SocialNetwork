@@ -1,4 +1,6 @@
-﻿using SocialNetwork.Models;
+﻿using SocialNetwork.Core.Repositories;
+using SocialNetwork.Models;
+using SocialNetwork.Persistence.Repositories;
 using SocialNetwork.Repositories;
 
 namespace SocialNetwork.Persistence
@@ -12,6 +14,8 @@ namespace SocialNetwork.Persistence
 		public IFollowingRepository Followings { get; set; }
 		public IAttendanceRepository Attendances { get; set; }
 
+		public INotificationRepository Notifications { get; set; }
+
 		public UnitOfWork(ApplicationDbContext dbContext)
 		{
 			_dbContext = dbContext;
@@ -19,6 +23,8 @@ namespace SocialNetwork.Persistence
 			Genres = new GenreRepository(_dbContext);
 			Followings = new FollowingRepository(_dbContext);
 			Attendances = new AttendanceRepository(_dbContext);
+			Notifications = new NotificationRepository(_dbContext);
+
 		}
 
 		public void Complete()

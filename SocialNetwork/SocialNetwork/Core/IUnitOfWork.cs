@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Repositories;
+﻿using SocialNetwork.Core.Repositories;
+using SocialNetwork.Repositories;
 
 namespace SocialNetwork.Persistence
 {
@@ -8,6 +9,8 @@ namespace SocialNetwork.Persistence
 		IConcertRepository Concerts { get; }
 		IFollowingRepository Followings { get; set; }
 		IGenreRepository Genres { get; set; }
+
+		INotificationRepository Notifications { get; set; }
 
 		void Complete();
 	}

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using SocialNetwork.Dto;
 using SocialNetwork.Models;
-using System.Linq;
+using SocialNetwork.Persistence;
 using System.Web.Http;
 
 namespace SocialNetwork.Controllers
@@ -10,11 +10,12 @@ namespace SocialNetwork.Controllers
 	[Authorize]
 	public class FollowingsController : ApiController
 	{
-		private readonly ApplicationDbContext _dbContext;
+		private readonly IUnitOfWork _unitOfWork;
 
-		public FollowingsController()
+
+		public FollowingsController(UnitOfWork unitOfWork)
 		{
-			_dbContext = new ApplicationDbContext();
+			_unitOfWork = unitOfWork;
 		}
 
 		[HttpDelete]
@@ -22,14 +23,14 @@ namespace SocialNetwork.Controllers
 		{
 			var userId = User.Identity.GetUserId();
 
-			var following = _dbContext.Followings
-				.SingleOrDefault(f => f.FollowerId == userId && f.FolloweeId == id);
+			var following = _unitOfWork.Followings.GetFollowing(userId, id);
 
 			if (following == null)
 				return NotFound();
 
-			_dbContext.Followings.Remove(following);
-			_dbContext.SaveChanges();
+			_unitOfWork.Followings.Remove(following);
+			_unitOfWork.Complete();
+
 
 			return Ok(id);
 		}
@@ -39,13 +40,14 @@ namespace SocialNetwork.Controllers
 		{
 			var userId = User.Identity.GetUserId();
 
-			if (_dbContext.Followings.Any(f => f.FollowerId == userId && f.FolloweeId == dto.FolloweeId))
+			if (_unitOfWork.Followings.GetFollowing(userId, dto.FolloweeId) != null)
 				return BadRequest("Following already exists");
 
 			var following = new Following { FollowerId = userId, FolloweeId = dto.FolloweeId };
 
-			_dbContext.Followings.Add(following);
-			_dbContext.SaveChanges();
+
+			_unitOfWork.Followings.Add(following);
+			_unitOfWork.Complete();
 
 			return Ok();
 		}

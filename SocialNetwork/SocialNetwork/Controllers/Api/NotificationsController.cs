@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using SocialNetwork.Dto;
-using SocialNetwork.Models;
+using SocialNetwork.Persistence;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 
@@ -12,22 +12,26 @@ namespace SocialNetwork.Controllers.Api
 
 	public class NotificationsController : ApiController
 	{
-		private readonly ApplicationDbContext _dbContext;
 
-		public NotificationsController()
+		private readonly IUnitOfWork _unitOfWork;
+
+
+
+		public NotificationsController(IUnitOfWork unitOfWork)
 		{
-			_dbContext = new ApplicationDbContext();
+			_unitOfWork = unitOfWork;
 
 		}
 		[HttpPost]
 		public IHttpActionResult MarkAsRead()
 		{
 			var userId = User.Identity.GetUserId();
-			var notifications = _dbContext.UserNotifications.Where(un => un.UserId == userId && !un.IsRead).ToList();
+			var notifications = _unitOfWork.Notifications.GetUserNotifications(userId);
 
 			notifications.ForEach(n => n.Read());
 
-			_dbContext.SaveChanges();
+			_unitOfWork.Complete();
+
 
 			return Ok();
 
@@ -39,15 +43,11 @@ namespace SocialNetwork.Controllers.Api
 
 			var userId = User.Identity.GetUserId();
 
-			var notifications = _dbContext.UserNotifications
-				.Where(un => !un.IsRead)
-				.Select(un => un.Notification)
-				.Include(n => n.Concert.Artist)
-				.ToList();
+			var notifications = _unitOfWork.Notifications.GetAllNotifications();
 
 
 
-
+			//mapping to dto
 			return notifications.Select(n => new NotificationDto()
 			{
 				DateTime = n.DateTime,

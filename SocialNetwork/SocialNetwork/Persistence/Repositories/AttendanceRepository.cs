@@ -19,10 +19,20 @@ namespace SocialNetwork.Repositories
 				.ToList();
 		}
 
-		public bool GetAttendance(int concertId, string userId)
+		public Attendance GetAttendance(int concertId, string userId)
 		{
-			return _dbContext.Attendances
-					.Any(a => a.ConcertId == concertId && a.AttendeeId == userId);
+			return _dbContext.Attendances.SingleOrDefault(a => a.ConcertId == concertId && a.AttendeeId == userId);
+
+		}
+
+		public void Remove(Attendance attendance)
+		{
+			_dbContext.Attendances.Remove(attendance);
+		}
+
+		public void Add(Attendance attendance)
+		{
+			_dbContext.Attendances.Add(attendance);
 		}
 
 	}
