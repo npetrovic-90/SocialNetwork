@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SocialNetwork.Repositories
 {
-	public class GenreRepository
+	public class GenreRepository : IGenreRepository
 	{
 		private readonly ApplicationDbContext _dbContext;
 		public GenreRepository(ApplicationDbContext dbContext)

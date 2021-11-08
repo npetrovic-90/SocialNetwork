@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SocialNetwork.Repositories
 {
-	public class AttendanceRepository
+	public class AttendanceRepository : IAttendanceRepository
 	{
 		private readonly ApplicationDbContext _dbContext;
 		public AttendanceRepository(ApplicationDbContext dbContext)

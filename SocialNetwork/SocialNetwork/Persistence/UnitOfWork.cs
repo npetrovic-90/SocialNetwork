@@ -3,14 +3,14 @@ using SocialNetwork.Repositories;
 
 namespace SocialNetwork.Persistence
 {
-	public class UnitOfWork
+	public class UnitOfWork : IUnitOfWork
 	{
 		private readonly ApplicationDbContext _dbContext;
 
-		public ConcertRepository Concerts { get; private set; }
-		public GenreRepository Genres { get; set; }
-		public FollowingRepository Followings { get; set; }
-		public AttendanceRepository Attendances { get; set; }
+		public IConcertRepository Concerts { get; private set; }
+		public IGenreRepository Genres { get; set; }
+		public IFollowingRepository Followings { get; set; }
+		public IAttendanceRepository Attendances { get; set; }
 
 		public UnitOfWork(ApplicationDbContext dbContext)
 		{

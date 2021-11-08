@@ -2,7 +2,6 @@
 using SocialNetwork.Models;
 using SocialNetwork.Persistence;
 using SocialNetwork.ViewModels;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,26 +9,17 @@ namespace SocialNetwork.Controllers
 {
 	public class ConcertsController : Controller
 	{
+		private readonly IUnitOfWork _unitOfWork;
 
-		private readonly ApplicationDbContext _dbContext;
-
-
-
-
-		private readonly UnitOfWork _unitOfWork;
-
-		public ConcertsController()
+		public ConcertsController(IUnitOfWork unitOfWork)
 		{
-			_dbContext = new ApplicationDbContext();
-			_unitOfWork = new UnitOfWork(_dbContext);
+
+			_unitOfWork = unitOfWork;
 		}
 
 		public ActionResult Details(int id)
 		{
-			var concert = _dbContext.Concerts
-				.Include(c => c.Artist)
-				.Include(c => c.Genre)
-				.SingleOrDefault(c => c.Id == id);
+			var concert = _unitOfWork.Concerts.GetConcert(id);
 
 			if (concert == null)
 				return HttpNotFound();
@@ -48,7 +38,6 @@ namespace SocialNetwork.Controllers
 
 			return View("Details", viewModel);
 		}
-
 
 		[Authorize]
 		public ActionResult Mine()
@@ -77,8 +66,6 @@ namespace SocialNetwork.Controllers
 			return View("Concerts", viewModel);
 
 		}
-
-
 
 		[HttpPost]
 		public ActionResult Search(ConcertsViewModel viewModel)
@@ -113,7 +100,7 @@ namespace SocialNetwork.Controllers
 			var viewModel = new ConcertFormViewModel()
 			{
 				Id = concert.Id,
-				Genres = _dbContext.Genres.ToList(),
+				Genres = _unitOfWork.Genres.GetGenres(),
 				Date = concert.DateTime.ToString("d MMM yyyy"),
 				Time = concert.DateTime.ToString("HH:mm"),
 				Genre = concert.GenreId,
@@ -125,7 +112,6 @@ namespace SocialNetwork.Controllers
 			return View("ConcertForm", viewModel);
 		}
 
-
 		[Authorize]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -134,7 +120,7 @@ namespace SocialNetwork.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				viewModel.Genres = _dbContext.Genres.ToList();
+				viewModel.Genres = _unitOfWork.Genres.GetGenres();
 				return View("ConcertForm", viewModel);
 			}
 
@@ -161,7 +147,7 @@ namespace SocialNetwork.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				viewModel.Genres = _dbContext.Genres.ToList();
+				viewModel.Genres = _unitOfWork.Genres.GetGenres();
 				return View("ConcertForm", viewModel);
 			}
 

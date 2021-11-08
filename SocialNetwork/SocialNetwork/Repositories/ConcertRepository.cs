@@ -6,7 +6,8 @@ using System.Linq;
 
 namespace SocialNetwork.Repositories
 {
-	public class ConcertRepository
+
+	public class ConcertRepository : IConcertRepository
 	{
 		private readonly ApplicationDbContext _dbContext;
 		public ConcertRepository(ApplicationDbContext dbContext)
