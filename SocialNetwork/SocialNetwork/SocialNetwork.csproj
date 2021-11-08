@@ -217,87 +217,87 @@
     <Compile Include="Controllers\Api\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Dto\ConcertDto.cs" />
-    <Compile Include="Dto\FollowingDto.cs" />
-    <Compile Include="Dto\GenreDto.cs" />
-    <Compile Include="Dto\NotificationDto.cs" />
-    <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Core\Dto\ConcertDto.cs" />
+    <Compile Include="Core\Dto\FollowingDto.cs" />
+    <Compile Include="Core\Dto\GenreDto.cs" />
+    <Compile Include="Core\Dto\NotificationDto.cs" />
+    <Compile Include="Core\Dto\UserDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110250928242_InitialModel.cs" />
-    <Compile Include="Migrations\202110250928242_InitialModel.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110250928242_InitialModel.cs" />
+    <Compile Include="Persistence\Migrations\202110250928242_InitialModel.Designer.cs">
       <DependentUpon>202110250928242_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110250940414_CreateConcertTable.cs" />
-    <Compile Include="Migrations\202110250940414_CreateConcertTable.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110250940414_CreateConcertTable.cs" />
+    <Compile Include="Persistence\Migrations\202110250940414_CreateConcertTable.Designer.cs">
       <DependentUpon>202110250940414_CreateConcertTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110250953494_OverrideConventionsForConcertsAndGenres.cs" />
-    <Compile Include="Migrations\202110250953494_OverrideConventionsForConcertsAndGenres.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110250953494_OverrideConventionsForConcertsAndGenres.cs" />
+    <Compile Include="Persistence\Migrations\202110250953494_OverrideConventionsForConcertsAndGenres.Designer.cs">
       <DependentUpon>202110250953494_OverrideConventionsForConcertsAndGenres.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110251002562_PopulateGenresTable.cs" />
-    <Compile Include="Migrations\202110251002562_PopulateGenresTable.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110251002562_PopulateGenresTable.cs" />
+    <Compile Include="Persistence\Migrations\202110251002562_PopulateGenresTable.Designer.cs">
       <DependentUpon>202110251002562_PopulateGenresTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110251115404_AddForeignKeyPropertiesToConcert.cs" />
-    <Compile Include="Migrations\202110251115404_AddForeignKeyPropertiesToConcert.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110251115404_AddForeignKeyPropertiesToConcert.cs" />
+    <Compile Include="Persistence\Migrations\202110251115404_AddForeignKeyPropertiesToConcert.Designer.cs">
       <DependentUpon>202110251115404_AddForeignKeyPropertiesToConcert.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110271036378_AddNameToApplicationUser.cs" />
-    <Compile Include="Migrations\202110271036378_AddNameToApplicationUser.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110271036378_AddNameToApplicationUser.cs" />
+    <Compile Include="Persistence\Migrations\202110271036378_AddNameToApplicationUser.Designer.cs">
       <DependentUpon>202110271036378_AddNameToApplicationUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110271120062_OverridingConventions.cs" />
-    <Compile Include="Migrations\202110271120062_OverridingConventions.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110271120062_OverridingConventions.cs" />
+    <Compile Include="Persistence\Migrations\202110271120062_OverridingConventions.Designer.cs">
       <DependentUpon>202110271120062_OverridingConventions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110271729575_AddAttendance.cs" />
-    <Compile Include="Migrations\202110271729575_AddAttendance.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110271729575_AddAttendance.cs" />
+    <Compile Include="Persistence\Migrations\202110271729575_AddAttendance.Designer.cs">
       <DependentUpon>202110271729575_AddAttendance.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110280957054_AddingFollowersEntity.cs" />
-    <Compile Include="Migrations\202110280957054_AddingFollowersEntity.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110280957054_AddingFollowersEntity.cs" />
+    <Compile Include="Persistence\Migrations\202110280957054_AddingFollowersEntity.Designer.cs">
       <DependentUpon>202110280957054_AddingFollowersEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202110290955465_AddIsCanceledToConcert.cs" />
-    <Compile Include="Migrations\202110290955465_AddIsCanceledToConcert.Designer.cs">
+    <Compile Include="Persistence\Migrations\202110290955465_AddIsCanceledToConcert.cs" />
+    <Compile Include="Persistence\Migrations\202110290955465_AddIsCanceledToConcert.Designer.cs">
       <DependentUpon>202110290955465_AddIsCanceledToConcert.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202111021626336_UserNotification.cs" />
-    <Compile Include="Migrations\202111021626336_UserNotification.Designer.cs">
+    <Compile Include="Persistence\Migrations\202111021626336_UserNotification.cs" />
+    <Compile Include="Persistence\Migrations\202111021626336_UserNotification.Designer.cs">
       <DependentUpon>202111021626336_UserNotification.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Attendance.cs" />
-    <Compile Include="Models\Concert.cs" />
-    <Compile Include="Models\Following.cs" />
-    <Compile Include="Models\Genre.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Notification.cs" />
-    <Compile Include="Models\NotificationType.cs" />
-    <Compile Include="Models\UserNotification.cs" />
-    <Compile Include="Persistence\IUnitOfWork.cs" />
+    <Compile Include="Persistence\Migrations\Configuration.cs" />
+    <Compile Include="Core\ViewModels\AccountViewModels.cs" />
+    <Compile Include="Core\Models\ApplicationUser.cs" />
+    <Compile Include="Core\Models\Attendance.cs" />
+    <Compile Include="Core\Models\Concert.cs" />
+    <Compile Include="Core\Models\Following.cs" />
+    <Compile Include="Core\Models\Genre.cs" />
+    <Compile Include="Persistence\IdentityModels.cs" />
+    <Compile Include="Core\ViewModels\ManageViewModels.cs" />
+    <Compile Include="Core\Models\Notification.cs" />
+    <Compile Include="Core\Models\NotificationType.cs" />
+    <Compile Include="Core\Models\UserNotification.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AttendanceRepository.cs" />
-    <Compile Include="Repositories\ConcertRepository.cs" />
-    <Compile Include="Repositories\FollowingRepository.cs" />
-    <Compile Include="Repositories\GenreRepository.cs" />
-    <Compile Include="Repositories\IAttendanceRepository.cs" />
-    <Compile Include="Repositories\IConcertRepository.cs" />
-    <Compile Include="Repositories\IFollowingRepository.cs" />
-    <Compile Include="Repositories\IGenreRepository.cs" />
+    <Compile Include="Persistence\Repositories\AttendanceRepository.cs" />
+    <Compile Include="Persistence\Repositories\ConcertRepository.cs" />
+    <Compile Include="Persistence\Repositories\FollowingRepository.cs" />
+    <Compile Include="Persistence\Repositories\GenreRepository.cs" />
+    <Compile Include="Core\Repositories\IAttendanceRepository.cs" />
+    <Compile Include="Core\Repositories\IConcertRepository.cs" />
+    <Compile Include="Core\Repositories\IFollowingRepository.cs" />
+    <Compile Include="Core\Repositories\IGenreRepository.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ConcertDetailsViewModel.cs" />
-    <Compile Include="ViewModels\ConcertFormViewModel.cs" />
-    <Compile Include="ViewModels\FutureDate.cs" />
-    <Compile Include="ViewModels\ConcertsViewModel.cs" />
-    <Compile Include="ViewModels\ValidTime.cs" />
+    <Compile Include="Core\ViewModels\ConcertDetailsViewModel.cs" />
+    <Compile Include="Core\ViewModels\ConcertFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\FutureDate.cs" />
+    <Compile Include="Core\ViewModels\ConcertsViewModel.cs" />
+    <Compile Include="Core\ViewModels\ValidTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -414,37 +414,37 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202110250928242_InitialModel.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110250928242_InitialModel.resx">
       <DependentUpon>202110250928242_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110250940414_CreateConcertTable.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110250940414_CreateConcertTable.resx">
       <DependentUpon>202110250940414_CreateConcertTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110250953494_OverrideConventionsForConcertsAndGenres.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110250953494_OverrideConventionsForConcertsAndGenres.resx">
       <DependentUpon>202110250953494_OverrideConventionsForConcertsAndGenres.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110251002562_PopulateGenresTable.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110251002562_PopulateGenresTable.resx">
       <DependentUpon>202110251002562_PopulateGenresTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110251115404_AddForeignKeyPropertiesToConcert.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110251115404_AddForeignKeyPropertiesToConcert.resx">
       <DependentUpon>202110251115404_AddForeignKeyPropertiesToConcert.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110271036378_AddNameToApplicationUser.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110271036378_AddNameToApplicationUser.resx">
       <DependentUpon>202110271036378_AddNameToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110271120062_OverridingConventions.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110271120062_OverridingConventions.resx">
       <DependentUpon>202110271120062_OverridingConventions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110271729575_AddAttendance.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110271729575_AddAttendance.resx">
       <DependentUpon>202110271729575_AddAttendance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110280957054_AddingFollowersEntity.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110280957054_AddingFollowersEntity.resx">
       <DependentUpon>202110280957054_AddingFollowersEntity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202110290955465_AddIsCanceledToConcert.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202110290955465_AddIsCanceledToConcert.resx">
       <DependentUpon>202110290955465_AddIsCanceledToConcert.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202111021626336_UserNotification.resx">
+    <EmbeddedResource Include="Persistence\Migrations\202111021626336_UserNotification.resx">
       <DependentUpon>202111021626336_UserNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

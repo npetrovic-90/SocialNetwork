@@ -46,7 +46,7 @@ namespace SocialNetwork.App_Start
 				kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
 				RegisterServices(kernel);
-
+				//scanning assembly and automatically binding interfaces to classes.
 				kernel.Bind(x =>
 				{
 					x.FromThisAssembly().SelectAllClasses().BindDefaultInterface();
