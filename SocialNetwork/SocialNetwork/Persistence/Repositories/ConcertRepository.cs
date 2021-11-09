@@ -24,12 +24,13 @@ namespace SocialNetwork.Repositories
 				.Include(c => c.Attendances.Select(a => a.Attendee))
 				.SingleOrDefault(g => g.Id == concertId);
 		}
-		public Concert GetConcertArtistIsAttending(int concertId, string artistId)
+		public Concert GetConcertArtistIsAttending(int concertId)
 		{
-
 			return _dbContext.Concerts
-				.Include(c => c.Attendances.Select(a => a.Attendee))
-				.SingleOrDefault(c => c.Id == concertId && c.ArtistId == artistId);
+				.Include(g => g.Attendances.Select(a => a.Attendee))
+				.SingleOrDefault(g => g.Id == concertId);
+
+
 		}
 
 		public IEnumerable<Concert> GetUpcomingConcertsByArtist(string artistId)

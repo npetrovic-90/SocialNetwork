@@ -10,6 +10,6 @@ namespace SocialNetwork.Repositories
 		Concert GetConcertWithAttendees(int concertId);
 		IEnumerable<Concert> GetConcertsUserAttending(string userId);
 		void Add(Concert concert);
-		Concert GetConcertArtistIsAttending(int concertId, string artistId);
+		Concert GetConcertArtistIsAttending(int concertId);
 	}
 }

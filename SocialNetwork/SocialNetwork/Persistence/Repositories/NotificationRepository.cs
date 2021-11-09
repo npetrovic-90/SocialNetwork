@@ -14,14 +14,15 @@ namespace SocialNetwork.Persistence.Repositories
 			_dbContext = dbContext;
 		}
 
-		public IEnumerable<Notification> GetAllNotifications()
+		public IEnumerable<Notification> GetNewNotificationsFor(string userId)
 		{
 			return _dbContext.UserNotifications
-				.Where(un => !un.IsRead)
+				.Where(un => !un.IsRead && un.UserId == userId)
 				.Select(un => un.Notification)
 				.Include(n => n.Concert.Artist)
 				.ToList();
 		}
+
 
 		public IEnumerable<UserNotification> GetUserNotifications(string userId)
 		{

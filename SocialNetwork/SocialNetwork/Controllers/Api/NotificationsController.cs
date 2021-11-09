@@ -10,6 +10,7 @@ namespace SocialNetwork.Controllers.Api
 {
 
 
+	[Authorize]
 	public class NotificationsController : ApiController
 	{
 
@@ -43,7 +44,7 @@ namespace SocialNetwork.Controllers.Api
 
 			var userId = User.Identity.GetUserId();
 
-			var notifications = _unitOfWork.Notifications.GetAllNotifications();
+			var notifications = _unitOfWork.Notifications.GetNewNotificationsFor(userId);
 
 
 

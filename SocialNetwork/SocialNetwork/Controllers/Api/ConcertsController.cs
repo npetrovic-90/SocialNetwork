@@ -21,10 +21,16 @@ namespace SocialNetwork.Controllers.Api
 
 			var userId = User.Identity.GetUserId();
 
-			var concert = _unitOfWork.Concerts.GetConcertArtistIsAttending(id, userId);
+			var concert = _unitOfWork.Concerts.GetConcertArtistIsAttending(id);
+
+			if (concert == null)
+				return NotFound();
 
 			if (concert.IsCanceled)
 				return NotFound();
+
+			if (concert.ArtistId != userId)
+				return Unauthorized();
 
 			concert.Cancel();
 
